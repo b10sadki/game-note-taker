@@ -1,14 +1,10 @@
-import { db } from "../helpers/db";
+import { supabaseDb } from "../helpers/supabase-db";
 import { OutputType } from "./games_GET.schema";
 import superjson from 'superjson';
 
 export async function handle(request: Request) {
   try {
-    const games = await db
-      .selectFrom('games')
-      .selectAll()
-      .orderBy('createdAt', 'desc')
-      .execute();
+    const games = await supabaseDb.games.findAll();
 
     return new Response(superjson.stringify(games satisfies OutputType), {
       headers: { 'Content-Type': 'application/json' },

@@ -1,4 +1,4 @@
-import { db } from "../../helpers/db";
+import { supabaseDb } from "../../helpers/supabase-db";
 import { schema, OutputType } from "./solutions_GET.schema";
 import superjson from 'superjson';
 
@@ -9,12 +9,7 @@ export async function handle(request: Request) {
       gameId: url.searchParams.get('gameId'),
     });
 
-    const solutions = await db
-      .selectFrom('solutions')
-      .selectAll()
-      .where('gameId', '=', input.gameId)
-      .orderBy('createdAt', 'desc')
-      .execute();
+    const solutions = await supabaseDb.solutions.getByGameId(input.gameId);
 
     return new Response(superjson.stringify(solutions satisfies OutputType), {
       headers: { 'Content-Type': 'application/json' },

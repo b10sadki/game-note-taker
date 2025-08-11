@@ -1,4 +1,4 @@
-import { db } from "../../../helpers/db";
+import { supabaseDb } from "../../../helpers/supabase-db";
 import { schema, OutputType } from "./generate_POST.schema";
 import superjson from 'superjson';
 import { OpenAI } from 'openai';
@@ -16,11 +16,7 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const input = schema.parse(json);
 
-    const game = await db
-      .selectFrom('games')
-      .where('id', '=', input.gameId)
-      .select('name')
-      .executeTakeFirst();
+    const game = await supabaseDb.games.getById(input.gameId);
 
     if (!game) {
       return new Response(superjson.stringify({ error: "Game not found" }), { status: 404 });
@@ -42,16 +38,11 @@ Problem: ${input.problem}`;
       return new Response(superjson.stringify({ error: "Failed to generate AI solution" }), { status: 500 });
     }
 
-    const newSolution = await db
-      .insertInto('solutions')
-      .values({
-        gameId: input.gameId,
-        problem: input.problem,
-        solution: generatedSolution,
-        aiGenerated: true,
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+    const newSolution = await supabaseDb.solutions.create({
+      game_id: input.gameId,
+      title: input.problem,
+      content: generatedSolution,
+    });
 
     return new Response(superjson.stringify(newSolution satisfies OutputType), {
       status: 201,

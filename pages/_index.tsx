@@ -82,8 +82,8 @@ const GameCard = ({ game }: { game: Selectable<Games> }) => {
     <>
       <Link to={`/games/${game.id}`} className={styles.gameCard}>
         <div className={styles.imageWrapper}>
-          {game.backgroundImage ? (
-            <img src={game.backgroundImage} alt={game.name} className={styles.gameImage} />
+          {game.imageUrl ? (
+            <img src={game.imageUrl} alt={game.name} className={styles.gameImage} />
           ) : (
             <div className={styles.imagePlaceholder}>
               <Gamepad2 size={48} />
@@ -128,8 +128,8 @@ const GameCard = ({ game }: { game: Selectable<Games> }) => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="backlog">
-                    <StatusBadge status="backlog" size="small" />
+                  <SelectItem value="not_started">
+                    <StatusBadge status="not_started" size="small" />
                   </SelectItem>
                   <SelectItem value="in_progress">
                     <StatusBadge status="in_progress" size="small" />
@@ -137,8 +137,8 @@ const GameCard = ({ game }: { game: Selectable<Games> }) => {
                   <SelectItem value="completed">
                     <StatusBadge status="completed" size="small" />
                   </SelectItem>
-                  <SelectItem value="abandoned">
-                    <StatusBadge status="abandoned" size="small" />
+                  <SelectItem value="on_hold">
+                    <StatusBadge status="on_hold" size="small" />
                   </SelectItem>
                 </SelectContent>
               </Select>

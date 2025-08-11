@@ -5,7 +5,7 @@
 
 import type { ColumnType } from "kysely";
 
-export type GameStatus = "abandoned" | "backlog" | "completed" | "in_progress";
+export type GameStatus = "not_started" | "in_progress" | "completed" | "on_hold";
 
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
@@ -59,7 +59,49 @@ export interface DB {
   solutions: Solutions;
 }
 
+// Supabase Database type
+export type Database = {
+  public: {
+    Tables: {
+      games: {
+        Row: Games;
+        Insert: Omit<Games, 'id' | 'createdAt' | 'updatedAt' | 'status'> & {
+          id?: number;
+          createdAt?: string;
+          updatedAt?: string;
+          status?: GameStatus;
+        };
+        Update: Partial<Omit<Games, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      notes: {
+        Row: Notes;
+        Insert: Omit<Notes, 'id' | 'createdAt' | 'updatedAt'> & {
+          id?: number;
+          createdAt?: string;
+          updatedAt?: string;
+        };
+        Update: Partial<Omit<Notes, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+      solutions: {
+        Row: Solutions;
+        Insert: Omit<Solutions, 'id' | 'createdAt' | 'updatedAt' | 'aiGenerated'> & {
+          id?: number;
+          createdAt?: string;
+          updatedAt?: string;
+          aiGenerated?: boolean;
+        };
+        Update: Partial<Omit<Solutions, 'id' | 'createdAt' | 'updatedAt'>>;
+      };
+    };
+    Views: {};
+    Functions: {};
+    Enums: {
+      game_status: GameStatus;
+    };
+  };
+};
+
 
 // Use these for zod schema enums or other purposes, since the kysely enums are just types
-export const GameStatusArrayValues: [GameStatus, ...GameStatus[]] = ["abandoned","backlog","completed","in_progress"];
+export const GameStatusArrayValues: [GameStatus, ...GameStatus[]] = ["not_started","in_progress","completed","on_hold"];
 // Note: kysely maps the table/column/enum names from snake_case to camelCase and PascalCase. When running SQL statements, make sure to use snake_case, but TypeScript code should use camelCase or PascalCase.

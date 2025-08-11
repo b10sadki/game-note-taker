@@ -202,10 +202,10 @@ export default function GameDetailPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="backlog">Backlog</SelectItem>
+                        <SelectItem value="not_started">Not Started</SelectItem>
                         <SelectItem value="in_progress">In Progress</SelectItem>
                         <SelectItem value="completed">Completed</SelectItem>
-                        <SelectItem value="abandoned">Abandoned</SelectItem>
+                        <SelectItem value="on_hold">On Hold</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

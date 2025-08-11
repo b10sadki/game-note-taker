@@ -1,4 +1,4 @@
-import { db } from "../../helpers/db";
+import { supabaseDb } from "../../helpers/supabase-db";
 import { schema, OutputType } from "./status_POST.schema";
 import superjson from 'superjson';
 
@@ -7,12 +7,7 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const { gameId, status } = schema.parse(json);
 
-    const updatedGame = await db
-      .updateTable('games')
-      .set({ status, updatedAt: new Date() })
-      .where('id', '=', gameId)
-      .returningAll()
-      .executeTakeFirst();
+    const updatedGame = await supabaseDb.games.updateStatus(gameId, status);
 
     if (!updatedGame) {
       return new Response(superjson.stringify({ error: `Game with ID ${gameId} not found.` }), {

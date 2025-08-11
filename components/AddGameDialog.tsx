@@ -24,10 +24,10 @@ interface AddGameDialogProps {
 }
 
 const statusLabels: Record<GameStatus, string> = {
-  'backlog': 'Backlog',
+  'not_started': 'Not Started',
   'in_progress': 'In Progress', 
   'completed': 'Completed',
-  'abandoned': 'Abandoned'
+  'on_hold': 'On Hold'
 };
 
 export function AddGameDialog({ isOpen, onOpenChange }: AddGameDialogProps) {
@@ -53,7 +53,7 @@ export function AddGameDialog({ isOpen, onOpenChange }: AddGameDialogProps) {
           // Initialize default status for each game
           const initialStatuses: Record<number, GameStatus> = {};
           results.forEach(game => {
-            initialStatuses[game.id] = 'backlog';
+            initialStatuses[game.id] = 'not_started';
           });
           setGameStatuses(initialStatuses);
         },
@@ -74,7 +74,7 @@ export function AddGameDialog({ isOpen, onOpenChange }: AddGameDialogProps) {
   };
 
   const handleImportGame = async (game: RawgGameResult) => {
-    const selectedStatus = gameStatuses[game.id] || 'backlog';
+    const selectedStatus = gameStatuses[game.id] || 'not_started';
     importMutation.mutate(
       { rawgId: game.id, status: selectedStatus },
       {
@@ -257,7 +257,7 @@ export function AddGameDialog({ isOpen, onOpenChange }: AddGameDialogProps) {
                       <div className={styles.statusSelector}>
                         <label className={styles.statusLabel}>Initial Status:</label>
                         <Select 
-                          value={gameStatuses[game.id] || 'backlog'}
+                          value={gameStatuses[game.id] || 'not_started'}
                           onValueChange={(value) => handleStatusChange(game.id, value as GameStatus)}
                         >
                           <SelectTrigger className={styles.statusTrigger}>

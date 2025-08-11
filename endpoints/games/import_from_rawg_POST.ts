@@ -1,7 +1,7 @@
-import { db } from "../../helpers/db";
+import { supabaseDb } from "../../helpers/supabase-db";
+import { supabase } from "../../helpers/supabase";
 import { schema, OutputType } from "./import_from_rawg_POST.schema";
 import superjson from 'superjson';
-import { sql } from 'kysely';
 
 const RAWG_API_URL = "https://api.rawg.io/api";
 
@@ -30,38 +30,34 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const { rawgId } = schema.parse(json);
 
-    const existingGame = await db
-      .selectFrom('games')
-      .where('rawgId', '=', rawgId)
-      .select('id')
-      .executeTakeFirst();
-
-    if (existingGame) {
-      // Game already exists, maybe we should just return it or update it.
-      // For now, let's throw an error to prevent duplicates.
-      return new Response(superjson.stringify({ error: `Game with RAWG ID ${rawgId} has already been imported.` }), { status: 409 });
+    // Check if game already exists
+    try {
+      const { data: existingGames } = await supabase
+        .from('games')
+        .select('id')
+        .eq('rawg_id', rawgId)
+        .limit(1);
+      
+      if (existingGames && existingGames.length > 0) {
+        return new Response(superjson.stringify({ error: `Game with RAWG ID ${rawgId} has already been imported.` }), { status: 409 });
+      }
+    } catch (error) {
+      console.error('Error checking existing game:', error);
     }
 
     const gameDetails = await getRawgGameDetails(rawgId, RAWG_API_KEY);
 
-    const newGame = await db
-      .insertInto('games')
-      .values({
-        name: gameDetails.name,
-        slug: gameDetails.slug,
-        description: gameDetails.description_raw,
-        released: gameDetails.released ? new Date(gameDetails.released) : null,
-        backgroundImage: gameDetails.background_image,
-        imageUrl: gameDetails.background_image, // Using background_image for imageUrl as well
-        rating: gameDetails.rating,
-        platforms: gameDetails.platforms?.map((p: any) => p.platform.name) ?? [],
-        genres: gameDetails.genres?.map((g: any) => g.name) ?? [],
-        developers: gameDetails.developers?.map((d: any) => d.name) ?? [],
-        publishers: gameDetails.publishers?.map((p: any) => p.name) ?? [],
-        rawgId: gameDetails.id,
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+    const newGame = await supabaseDb.games.create({
+      title: gameDetails.name,
+      description: gameDetails.description_raw,
+      release_date: gameDetails.released ? gameDetails.released : null,
+      image_url: gameDetails.background_image || null,
+      rating: gameDetails.rating,
+      platform: gameDetails.platforms?.map((p: any) => p.platform.name).join(', ') ?? null,
+      genre: gameDetails.genres?.map((g: any) => g.name).join(', ') ?? null,
+      rawg_id: gameDetails.id,
+      status: 'not_started'
+    });
 
     return new Response(superjson.stringify(newGame satisfies OutputType), {
       status: 201,

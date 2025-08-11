@@ -6,10 +6,11 @@ import postgres from 'postgres'
 export const db = new Kysely<DB>({
 plugins: [new CamelCasePlugin()],
 dialect: new PostgresJSDialect({
-postgres: postgres(process.env.FLOOT_DATABASE_URL, {
+postgres: postgres(process.env.SUPABASE_DATABASE_URL!, {
 prepare: false,
-idle_timeout: 10,
-max: 3,
+idle_timeout: 20,
+max: 10,
+ssl: 'require'
 }),
 }),
 })

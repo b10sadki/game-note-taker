@@ -24,8 +24,17 @@ export const postGamesDelete = async (body: InputType, init?: RequestInit): Prom
   });
 
   if (!result.ok) {
-    const errorObject = superjson.parse(await result.text());
-    throw new Error((errorObject as { error: string }).error);
+    try {
+      const errorText = await result.text();
+      const errorObject = superjson.parse(errorText);
+      const errorMessage = (errorObject && typeof errorObject === 'object' && 'error' in errorObject) 
+        ? (errorObject as { error: string }).error 
+        : `HTTP ${result.status}: ${result.statusText}`;
+      throw new Error(errorMessage);
+    } catch (parseError) {
+      // If parsing fails, use the status text as fallback
+      throw new Error(`HTTP ${result.status}: ${result.statusText}`);
+    }
   }
   return superjson.parse<OutputType>(await result.text());
 };

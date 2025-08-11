@@ -2,8 +2,8 @@ import React from 'react';
 import {
   CheckCircle2,
   Hourglass,
-  BookMarked,
-  XCircle,
+  Play,
+  Pause,
   type LucideProps,
 } from 'lucide-react';
 import type { GameStatus } from '../helpers/schema';
@@ -20,6 +20,11 @@ type StatusConfig = {
 };
 
 const statusMap: Record<GameStatus, StatusConfig> = {
+  not_started: {
+    label: 'Not Started',
+    variant: 'secondary',
+    Icon: Play,
+  },
   in_progress: {
     label: 'In Progress',
     variant: 'default',
@@ -30,15 +35,10 @@ const statusMap: Record<GameStatus, StatusConfig> = {
     variant: 'success',
     Icon: CheckCircle2,
   },
-  backlog: {
-    label: 'Backlog',
-    variant: 'secondary',
-    Icon: BookMarked,
-  },
-  abandoned: {
-    label: 'Abandoned',
+  on_hold: {
+    label: 'On Hold',
     variant: 'outline',
-    Icon: XCircle,
+    Icon: Pause,
   },
 };
 

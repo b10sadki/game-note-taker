@@ -1,4 +1,4 @@
-import { db } from "../../helpers/db";
+import { supabaseDb } from "../../helpers/supabase-db";
 import { schema, OutputType } from "./notes_POST.schema";
 import superjson from 'superjson';
 
@@ -7,15 +7,10 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const input = schema.parse(json);
 
-    const newNote = await db
-      .insertInto('notes')
-      .values({
-        gameId: input.gameId,
-        title: input.title,
-        content: input.content,
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+    const newNote = await supabaseDb.notes.create({
+      game_id: input.gameId,
+      content: input.content,
+    });
 
     return new Response(superjson.stringify(newNote satisfies OutputType), {
       status: 201,

@@ -1,32 +1,31 @@
-import { db } from "../../helpers/db";
+import { supabaseDb } from "../../helpers/supabase-db";
+import { supabase } from "../../helpers/supabase";
 import { schema, OutputType } from "./delete_POST.schema";
 import superjson from 'superjson';
-import { Transaction } from "kysely";
-import { DB } from "../../helpers/schema";
 
-async function deleteGameAndAssociations(gameId: number, trx: Transaction<DB>) {
+async function deleteGameAndAssociations(gameId: number) {
   // Delete associated solutions
-  await trx
-    .deleteFrom('solutions')
-    .where('gameId', '=', gameId)
-    .execute();
+  const { error: solutionsError } = await supabase
+    .from('solutions')
+    .delete()
+    .eq('game_id', gameId);
+  
+  if (solutionsError) {
+    console.error('Error deleting solutions:', solutionsError);
+  }
 
   // Delete associated notes
-  await trx
-    .deleteFrom('notes')
-    .where('gameId', '=', gameId)
-    .execute();
+  const { error: notesError } = await supabase
+    .from('notes')
+    .delete()
+    .eq('game_id', gameId);
+  
+  if (notesError) {
+    console.error('Error deleting notes:', notesError);
+  }
 
   // Delete the game itself
-  const deleteResult = await trx
-    .deleteFrom('games')
-    .where('id', '=', gameId)
-    .executeTakeFirst(); // Use executeTakeFirst as we expect to delete at most one row
-
-  // The numDeletedRows is a bigint, so we compare with 0n
-  if (deleteResult.numDeletedRows === 0n) {
-    throw new Error("Game not found or already deleted.");
-  }
+  await supabaseDb.games.delete(gameId);
 }
 
 export async function handle(request: Request) {
@@ -34,9 +33,7 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const { gameId } = schema.parse(json);
 
-    await db.transaction().execute(async (trx) => {
-      await deleteGameAndAssociations(gameId, trx);
-    });
+    await deleteGameAndAssociations(gameId);
 
     console.log(`Successfully deleted game with ID: ${gameId} and its associations.`);
     return new Response(superjson.stringify({ success: true } satisfies OutputType), {

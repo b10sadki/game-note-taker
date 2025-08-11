@@ -16,7 +16,7 @@ app.get('_api/games',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games',async c => {
@@ -30,7 +30,7 @@ app.post('_api/games',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.get('_api/games/notes',async c => {
@@ -44,7 +44,7 @@ app.get('_api/games/notes',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/notes',async c => {
@@ -58,7 +58,7 @@ app.post('_api/games/notes',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.get('_api/games/solutions',async c => {
@@ -72,7 +72,7 @@ app.get('_api/games/solutions',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/solutions',async c => {
@@ -86,7 +86,7 @@ app.post('_api/games/solutions',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/solutions/generate',async c => {
@@ -100,7 +100,7 @@ app.post('_api/games/solutions/generate',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/rawg_search',async c => {
@@ -114,7 +114,7 @@ app.post('_api/games/rawg_search',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/rawg_details',async c => {
@@ -128,7 +128,7 @@ app.post('_api/games/rawg_details',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/import_from_rawg',async c => {
@@ -142,7 +142,7 @@ app.post('_api/games/import_from_rawg',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/delete',async c => {
@@ -156,7 +156,7 @@ app.post('_api/games/delete',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.post('_api/games/status',async c => {
@@ -170,7 +170,7 @@ app.post('_api/games/status',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.get('_api/dashboard/stats',async c => {
@@ -184,7 +184,7 @@ app.get('_api/dashboard/stats',async c => {
     return response;
   } catch (e) {
     console.error(e);
-    return c.text("Error loading endpoint code " + e.message,  500)
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
 app.use('/*', serveStatic({ root: './dist' }))
