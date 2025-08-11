@@ -1,0 +1,116 @@
+.section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-12);
+}
+
+.formsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.listContainer {
+  min-height: 300px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.solutionItem {
+  background-color: var(--surface);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent);
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.problemTitle,
+.solutionTitle {
+  font-family: var(--font-family-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.solutionTitle {
+  margin-top: var(--spacing-4);
+}
+
+.problemText,
+.solutionText {
+  font-size: 0.95rem;
+  color: var(--foreground);
+  line-height: 1.6;
+  margin: var(--spacing-2) 0 0 0;
+  white-space: pre-wrap;
+}
+
+.formContainer {
+  background-color: var(--surface);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  align-self: start;
+  position: sticky;
+  top: var(--spacing-8);
+}
+
+.formTitle {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  margin: 0 0 var(--spacing-4) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitButton {
+  margin-top: var(--spacing-2);
+  align-self: flex-end;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-8);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  height: 100%;
+  color: var(--muted-foreground);
+}
+
+.emptyIcon {
+  margin-bottom: var(--spacing-4);
+  color: var(--accent);
+}
+
+.emptyState h4 {
+  font-family: var(--font-family-heading);
+  font-size: 1.2rem;
+  color: var(--foreground);
+  margin: 0 0 var(--spacing-1) 0;
+}
+
+.error {
+  color: var(--error);
+}

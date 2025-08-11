@@ -1,0 +1,151 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  -webkit-backdrop-filter: var(--glass-backdrop-filter);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  transition: all var(--animation-duration-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-indicator);
+  transition: height var(--animation-duration-normal) ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card:hover::before {
+  height: 6px;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-fg);
+  box-shadow: var(--shadow);
+}
+
+.iconWrapper > svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.trend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.trend-up {
+  color: var(--success);
+}
+
+.trend-down {
+  color: var(--error);
+}
+
+/* Variants */
+.primary {
+  --color-indicator: var(--primary);
+  --color-bg: var(--primary);
+  --color-fg: var(--primary-foreground);
+}
+
+.secondary {
+  --color-indicator: var(--secondary);
+  --color-bg: var(--secondary);
+  --color-fg: var(--secondary-foreground);
+}
+
+.accent {
+  --color-indicator: var(--accent);
+  --color-bg: var(--accent);
+  --color-fg: var(--accent-foreground);
+}
+
+.info {
+  --color-indicator: var(--info);
+  --color-bg: var(--info);
+  --color-fg: var(--info-foreground);
+}
+
+.success {
+  --color-indicator: var(--success);
+  --color-bg: var(--success);
+  --color-fg: var(--success-foreground);
+}
+
+.warning {
+  --color-indicator: var(--warning);
+  --color-bg: var(--warning);
+  --color-fg: var(--warning-foreground);
+}
+
+.error {
+  --color-indicator: var(--error);
+  --color-bg: var(--error);
+  --color-fg: var(--error-foreground);
+}
+
+@media (max-width: 768px) {
+  .value {
+    font-size: 1.75rem;
+  }
+  .iconWrapper {
+    width: 3rem;
+    height: 3rem;
+  }
+  .iconWrapper > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

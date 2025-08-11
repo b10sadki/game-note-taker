@@ -1,0 +1,282 @@
+@layer base {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-family-base);
+    font-weight: 500;
+    border-radius: var(--radius);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background var(--animation-duration-fast) ease,
+      border-color var(--animation-duration-fast) ease,
+      color var(--animation-duration-fast) ease,
+      box-shadow var(--animation-duration-fast) ease,
+      transform var(--animation-duration-fast) ease;
+    outline: none;
+    border: 1px solid transparent;
+    position: relative;
+  }
+
+  /* Focus styles - high contrast for accessibility */
+  .button:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--primary);
+    outline: none;
+  }
+
+  /* Size variants - ensuring proper touch targets */
+  .sm {
+    height: 1.5rem;
+    padding: 0 var(--spacing-2);
+    font-size: 0.875rem;
+  }
+
+  .md {
+    height: 2.5rem;
+    padding: 0 var(--spacing-3);
+    font-size: 0.9375rem;
+  }
+
+  .lg {
+    height: 3rem;
+    padding: 0 var(--spacing-4);
+    font-size: 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Icon button sizes */
+  .icon,
+  .icon-md {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+  }
+
+  .icon-sm {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+  }
+
+  .icon-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Icon sizing */
+  .button svg {
+    flex-shrink: 0;
+  }
+
+  .sm svg,
+  .icon-sm svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .md svg,
+  .icon svg,
+  .icon-md svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .lg svg,
+  .icon-lg svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Primary - Gaming gradient with glow effects */
+  .primary {
+    background: var(--gradient-primary);
+    color: var(--primary-foreground);
+    border-color: transparent;
+    box-shadow: var(--shadow-glow);
+    --spinner-color: var(--primary-foreground);
+  }
+
+  .primary:hover {
+    background: linear-gradient(135deg, hsl(270 85% 70%) 0%, hsl(290 80% 75%) 100%);
+    box-shadow: var(--shadow-glow), 0 0 30px hsla(270 85% 65% / 0.4);
+    transform: translateY(-1px);
+  }
+
+  .primary:active {
+    background: linear-gradient(135deg, hsl(270 85% 60%) 0%, hsl(290 80% 65%) 100%);
+    box-shadow: var(--shadow-glow), 0 0 15px hsla(270 85% 65% / 0.3);
+    transform: translateY(0);
+  }
+
+  /* Secondary - Gaming gradient with subtle glow */
+  .secondary {
+    background: var(--gradient-secondary);
+    color: var(--secondary-foreground);
+    border-color: transparent;
+    box-shadow: 0 0 15px hsla(220 80% 60% / 0.2);
+    --spinner-color: var(--secondary-foreground);
+  }
+
+  .secondary:hover {
+    background: linear-gradient(135deg, hsl(220 80% 65%) 0%, hsl(200 75% 70%) 100%);
+    box-shadow: 0 0 25px hsla(220 80% 60% / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .secondary:active {
+    background: linear-gradient(135deg, hsl(220 80% 55%) 0%, hsl(200 75% 60%) 100%);
+    box-shadow: 0 0 10px hsla(220 80% 60% / 0.2);
+    transform: translateY(0);
+  }
+
+  /* Destructive - White text on solid red (high contrast) */
+  .destructive {
+    background-color: var(--error);
+    color: var(--error-foreground);
+    border-color: var(--error);
+    --spinner-color: var(--error-foreground);
+  }
+
+  .destructive:hover {
+    background-color: color-mix(in srgb, var(--error), black 10%);
+    border-color: color-mix(in srgb, var(--error), black 10%);
+  }
+
+  .destructive:active {
+    background-color: color-mix(in srgb, var(--error), black 15%);
+    border-color: color-mix(in srgb, var(--error), black 15%);
+  }
+
+  .destructive:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--error);
+  }
+
+  /* Outline - Gaming style with gradient border effect */
+  .outline {
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border: 2px solid var(--glass-border);
+    color: var(--primary);
+    position: relative;
+    --spinner-color: var(--primary);
+  }
+
+  .outline::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    opacity: 0;
+    transition: opacity var(--animation-duration-fast) ease;
+  }
+
+  .outline:hover {
+    background: hsla(260 25% 16% / 0.9);
+    color: hsl(270 85% 70%);
+    box-shadow: 0 0 20px hsla(270 85% 65% / 0.2);
+    transform: translateY(-1px);
+  }
+
+  .outline:hover::before {
+    opacity: 1;
+  }
+
+  .outline:active {
+    background: hsla(260 25% 14% / 0.95);
+    color: hsl(270 85% 65%);
+    transform: translateY(0);
+  }
+
+  /* Ghost - Subtle glassmorphism on hover */
+  .ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--primary);
+    --spinner-color: var(--primary);
+  }
+
+  .ghost:hover {
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+    color: hsl(270 85% 70%);
+    box-shadow: 0 0 15px hsla(270 85% 65% / 0.1);
+    transform: translateY(-1px);
+  }
+
+  .ghost:active {
+    background: hsla(260 25% 16% / 0.6);
+    color: hsl(270 85% 65%);
+    transform: translateY(0);
+  }
+
+  /* Link - Brand color text, underline on hover */
+  .link {
+    background-color: transparent;
+    color: var(--primary);
+    height: auto;
+    padding: 0;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+    min-height: 2.75rem; /* Ensure touch target height */
+    display: inline-flex;
+    align-items: center;
+    --spinner-color: var(--primary);
+  }
+
+  .link:hover {
+    text-decoration: underline;
+    color: color-mix(in srgb, var(--primary), black 10%);
+    background-color: transparent;
+  }
+
+  .link:active {
+    color: color-mix(in srgb, var(--primary), black 15%);
+    background-color: transparent;
+  }
+
+  .link:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary);
+    outline: none;
+    border-radius: 0.25rem;
+  }
+
+  /* Disabled state */
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Dark mode - colors automatically adjust due to CSS variable system */
+  .dark .primary:focus-visible,
+  .dark .outline:focus-visible,
+  .dark .ghost:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--primary);
+  }
+
+  .dark .destructive:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--error);
+  }
+
+  .dark .link:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary);
+  }
+}

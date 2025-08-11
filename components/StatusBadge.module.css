@@ -1,0 +1,44 @@
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-weight: 500;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+/* Default size */
+.default {
+  font-size: 0.875rem; /* 14px */
+  padding: var(--spacing-1) var(--spacing-3);
+}
+
+.default .icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Small size */
+.small {
+  font-size: 0.75rem; /* 12px */
+  padding: 0 var(--spacing-2);
+  height: 1.25rem;
+}
+
+.small .icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Large size */
+.large {
+  font-size: 1rem; /* 16px */
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+.large .icon {
+  width: 1rem;
+  height: 1rem;
+}

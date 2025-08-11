@@ -1,0 +1,523 @@
+.pageWrapper {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.container {
+  padding: var(--spacing-8);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius);
+  transition: all var(--animation-duration-fast) ease;
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: 1px solid var(--glass-border);
+  width: fit-content;
+}
+
+.backLink:hover {
+  color: var(--primary);
+  background: var(--glass-background);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.gameHeaderCard {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--glass-border);
+  margin-bottom: var(--spacing-8);
+  position: relative;
+  backdrop-filter: var(--glass-backdrop-filter);
+}
+
+.gameHeaderCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gameHeader {
+  display: flex;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8);
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.gameImageContainer {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.backgroundImage {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-surface);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--animation-duration-normal) ease;
+}
+
+.gameHeaderCard:hover .backgroundImage {
+  transform: scale(1.02);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, hsla(270 85% 65% / 0.1) 100%);
+  border-radius: var(--radius-lg);
+}
+
+.imagePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  background: var(--gradient-surface);
+}
+
+.headerContent {
+  flex-grow: 1;
+  min-width: 0;
+  padding: var(--spacing-4);
+}
+
+.titleSection {
+  margin-bottom: var(--spacing-4);
+}
+
+.gameTitle {
+  font-family: var(--font-family-heading);
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 var(--spacing-3) 0;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metaInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.starRating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--glass-background);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.starFilled {
+  color: var(--warning);
+  fill: var(--warning);
+  filter: drop-shadow(0 0 4px hsla(40 85% 65% / 0.4));
+}
+
+.starHalf {
+  color: var(--warning);
+  fill: var(--warning);
+  opacity: 0.6;
+}
+
+.starEmpty {
+  color: var(--muted-foreground);
+}
+
+.ratingText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-left: var(--spacing-2);
+}
+
+.releaseDate {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--glass-background);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.statusSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--glass-background);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.statusSelect {
+  width: 150px;
+  height: 36px;
+  font-size: 0.875rem;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop-filter);
+}
+
+.gameDescription {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-6) 0;
+  font-weight: 400;
+}
+
+.gameDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.detailGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background: var(--glass-background);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop-filter);
+  transition: all var(--animation-duration-normal) ease;
+}
+
+.detailGroup:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.detailGroup h3 {
+  font-family: var(--font-family-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badgeGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.detailText {
+  font-size: 0.95rem;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.contentCard {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  backdrop-filter: var(--glass-backdrop-filter);
+}
+
+.tabsContainer {
+  padding: var(--spacing-8);
+}
+
+.customTabsList {
+  background: var(--glass-background);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-1);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop-filter);
+  margin-bottom: var(--spacing-8);
+}
+
+.customTabsTrigger {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius);
+  transition: all var(--animation-duration-normal) ease;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.customTabsTrigger:hover {
+  color: var(--foreground);
+  background: var(--glass-background);
+}
+
+.customTabsTrigger[data-state="active"] {
+  background: var(--gradient-primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.tabContent {
+  animation: fadeIn var(--animation-duration-normal) ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.errorCard {
+  text-align: center;
+  padding: var(--spacing-12);
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-xl);
+  max-width: 500px;
+  backdrop-filter: var(--glass-backdrop-filter);
+}
+
+.errorCard h2 {
+  font-family: var(--font-family-heading);
+  font-size: 1.75rem;
+  color: var(--foreground);
+  margin: 0 0 var(--spacing-4) 0;
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--error) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.errorCard p {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-6);
+  line-height: 1.6;
+}
+
+.errorCard pre {
+  background: var(--glass-background);
+  padding: var(--spacing-4);
+  border-radius: var(--radius);
+  color: var(--muted-foreground);
+  font-family: var(--font-family-monospace);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-6);
+  text-align: left;
+  white-space: pre-wrap;
+  border: 1px solid var(--glass-border);
+  overflow-x: auto;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6);
+  background: var(--gradient-primary);
+  color: var(--primary-foreground);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--animation-duration-normal) ease;
+  font-family: var(--font-family-heading);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-4);
+  }
+  
+  .gameHeader {
+    flex-direction: column;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+  }
+  
+  .backgroundImage {
+    width: 100%;
+    max-width: 360px;
+    height: 200px;
+  }
+  
+  .gameTitle {
+    font-size: 2.25rem;
+  }
+  
+  .metaInfo {
+    gap: var(--spacing-4);
+  }
+  
+  .gameDetails {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .tabsContainer {
+    padding: var(--spacing-6);
+  }
+  
+  .customTabsList {
+    margin-bottom: var(--spacing-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .gameTitle {
+    font-size: 1.875rem;
+  }
+  
+  .backgroundImage {
+    height: 180px;
+  }
+  
+  .metaInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  .statusSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusSelect {
+    width: 100%;
+  }
+
+  .tabsContainer {
+    padding: var(--spacing-4);
+  }
+
+  .errorCard {
+    padding: var(--spacing-8);
+    margin: var(--spacing-4);
+  }
+}
+
+/* Enhanced glassmorphism effects */
+.gameHeaderCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  opacity: 0.6;
+  z-index: 3;
+}
+
+.contentCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-secondary);
+  opacity: 0.6;
+}
+
+/* Smooth animations for better UX */
+.gameHeaderCard,
+.contentCard,
+.detailGroup,
+.backLink {
+  animation: slideInUp var(--animation-duration-slow) ease-out;
+}
+
+.gameHeaderCard {
+  animation-delay: 0.1s;
+}
+
+.contentCard {
+  animation-delay: 0.2s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,217 @@
+@layer base {
+  .selectTrigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    height: 2.5rem;
+    line-height: 1.5;
+    color: var(--foreground);
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2) var(--spacing-3);
+    transition:
+      border-color var(--animation-duration-normal) ease,
+      background var(--animation-duration-normal) ease,
+      box-shadow var(--animation-duration-normal) ease,
+      transform var(--animation-duration-fast) ease;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+
+    & > *:not(svg) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .selectTrigger:hover {
+    border-color: var(--primary);
+    background: hsla(260 25% 16% / 0.9);
+    box-shadow: 0 0 20px hsla(270 85% 65% / 0.1);
+    transform: translateY(-1px);
+  }
+
+  .selectTrigger:focus {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-focus);
+    background: hsla(260 25% 16% / 0.95);
+  }
+
+  .selectTrigger[data-placeholder] {
+    color: var(--muted-foreground);
+  }
+
+  .selectTrigger[data-disabled] {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+    opacity: 0.75;
+    box-shadow: none;
+  }
+
+  .selectIcon {
+    height: 1rem;
+    width: 1rem;
+    color: var(--muted-foreground);
+    margin-left: var(--spacing-2);
+    transition: transform var(--animation-duration-normal) ease;
+  }
+
+  .selectTrigger[data-state="open"] .selectIcon {
+    transform: rotate(180deg);
+  }
+
+  .selectContent {
+    z-index: var(--z-overlay);
+    max-height: var(--radix-select-content-available-height);
+    min-width: 12rem;
+    max-width: 24rem;
+    overflow: hidden;
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+    border: 1px solid var(--glass-border);
+    color: var(--popup-foreground);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl), 0 0 30px hsla(270 85% 65% / 0.1);
+    animation: scaleIn var(--animation-duration-normal) ease;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .selectViewport {
+    padding: var(--spacing-3);
+  }
+
+  .scrollButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--spacing-8);
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+    color: var(--popup-foreground);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background var(--animation-duration-fast) ease;
+  }
+
+  .scrollButton:hover {
+    background: hsla(260 25% 16% / 0.9);
+  }
+
+  .scrollButton:hover .scrollIcon {
+    color: var(--primary);
+  }
+
+  .scrollIcon {
+    height: 1rem;
+    width: 1rem;
+    color: var(--muted-foreground);
+    transition: color var(--animation-duration-fast) ease;
+  }
+
+  .selectLabel {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  .selectItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-3) var(--spacing-4);
+    padding-right: var(--spacing-8);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    border-radius: var(--radius);
+    color: var(--popup-foreground);
+    user-select: none;
+    outline: none;
+    cursor: pointer;
+    transition:
+      background var(--animation-duration-fast) ease,
+      color var(--animation-duration-fast) ease,
+      transform var(--animation-duration-fast) ease;
+  }
+
+  .selectItem:hover {
+    background: var(--gradient-primary);
+    color: var(--primary-foreground);
+    transform: translateX(4px);
+  }
+
+  .selectItem:focus-visible {
+    background: var(--gradient-primary);
+    color: var(--primary-foreground);
+    transform: translateX(4px);
+  }
+
+  .selectItem[data-disabled] {
+    color: var(--muted-foreground);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .selectItem[data-state="checked"] {
+    background: var(--gradient-secondary);
+    color: var(--secondary-foreground);
+  }
+
+  .selectItem[data-state="checked"]:hover {
+    background: linear-gradient(135deg, hsl(220 80% 65%) 0%, hsl(200 75% 70%) 100%);
+  }
+
+  .selectItemIndicator {
+    position: absolute;
+    right: var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .checkIcon {
+    height: 1rem;
+    width: 1rem;
+    color: currentColor;
+  }
+
+  .selectSeparator {
+    height: 1px;
+    background-color: var(--border);
+    margin: var(--spacing-2) var(--spacing-1);
+  }
+
+  /* Enhanced dark mode with glassmorphism */
+  :global(.dark) .selectTrigger {
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop-filter);
+  }
+
+  :global(.dark) .selectTrigger:hover {
+    background: hsla(260 25% 16% / 0.9);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px hsla(270 85% 65% / 0.15);
+  }
+
+  :global(.dark) .selectTrigger:focus {
+    background: hsla(260 25% 16% / 0.95);
+    box-shadow: var(--shadow-focus);
+  }
+}

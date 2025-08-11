@@ -1,0 +1,170 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav-sticky);
+  width: 100%;
+  padding: var(--spacing-3) 0;
+  
+  /* Glassmorphism effect */
+  background-color: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  -webkit-backdrop-filter: var(--glass-backdrop-filter); /* For Safari */
+  border-bottom: 1px solid var(--glass-border);
+  
+  transition: background-color var(--animation-duration-normal) ease;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px; /* A generous max-width for wide screens */
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background: var(--primary-gradient);
+  box-shadow: var(--shadow-glow);
+  transition: transform var(--animation-duration-normal) ease;
+}
+
+.branding:hover .logoWrapper {
+  transform: scale(1.05) rotate(-5deg);
+}
+
+.logoIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--primary-foreground);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.tagline {
+  font-family: var(--font-family-base);
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--muted-foreground);
+  font-family: var(--font-family-base);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--animation-duration-normal) ease;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.navLink:hover {
+  color: var(--foreground);
+  background: var(--glass-background);
+  border-color: var(--glass-border);
+  transform: translateY(-1px);
+}
+
+.navIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.navText {
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-4);
+  }
+
+  .tagline {
+    display: none; /* Hide tagline on smaller screens for a cleaner look */
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .branding {
+    gap: var(--spacing-3);
+  }
+
+  .logoWrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .logoIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .navigation {
+    gap: var(--spacing-1);
+  }
+
+  .navText {
+    display: none; /* Hide navigation text on smaller screens */
+  }
+
+  .navLink {
+    padding: var(--spacing-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    /* On very small screens, we might only show the icon */
+    display: none;
+  }
+}
