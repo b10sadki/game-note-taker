@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { postGamesSolutionsGenerate, InputType } from '../endpoints/games/solutions/generate_POST.schema';
+import { gameSolutionsQueryKeys } from './useGameSolutions';
 
 export const useGenerateSolution = () => {
   const queryClient = useQueryClient();
@@ -10,8 +11,7 @@ export const useGenerateSolution = () => {
     onSuccess: (data) => {
       toast.success('AI solution generated successfully!');
       // Invalidate queries that depend on solutions data to refetch
-      queryClient.invalidateQueries({ queryKey: ['solutions', data.gameId] });
-      queryClient.invalidateQueries({ queryKey: ['games', data.gameId, 'solutions'] });
+      queryClient.invalidateQueries({ queryKey: gameSolutionsQueryKeys.list(data.gameId) });
     },
     onError: (error) => {
       toast.error(error.message || 'Failed to generate AI solution.');

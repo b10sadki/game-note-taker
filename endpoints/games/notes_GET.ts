@@ -9,7 +9,7 @@ export async function handle(request: Request) {
       gameId: url.searchParams.get('gameId'),
     });
 
-    const notes = await supabaseDb.notes.getByGameId(input.gameId);
+    const notes = await supabaseDb.notes.findByGameId(input.gameId);
 
     return new Response(superjson.stringify(notes satisfies OutputType), {
       headers: { 'Content-Type': 'application/json' },

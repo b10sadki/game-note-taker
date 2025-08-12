@@ -44,6 +44,11 @@ Problem: ${input.problem}`;
       solution: generatedSolution,
     });
 
+    if (!newSolution) {
+      console.error("Failed to create solution in database");
+      return new Response(superjson.stringify({ error: "Failed to save solution" }), { status: 500 });
+    }
+
     return new Response(superjson.stringify(newSolution satisfies OutputType), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },

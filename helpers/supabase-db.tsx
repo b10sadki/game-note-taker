@@ -170,7 +170,18 @@ export const supabaseDb = {
         .order('created_at', { ascending: false })
       
       if (error) throw error
-      return data
+      
+      // Map snake_case columns to camelCase to match TypeScript schema
+      return data?.map(solution => ({
+        id: solution.id,
+        gameId: solution.game_id,
+        problem: solution.title,
+        solution: solution.content,
+        difficulty: solution.difficulty,
+        aiGenerated: false, // Default to false since column doesn't exist in DB
+        createdAt: solution.created_at,
+        updatedAt: solution.updated_at
+      })) || []
     },
     
     async create(solution: Database['public']['Tables']['solutions']['Insert']) {
@@ -181,7 +192,20 @@ export const supabaseDb = {
         .single()
       
       if (error) throw error
-      return data
+      
+      if (!data) return null
+      
+      // Map snake_case columns to camelCase to match TypeScript schema
+      return {
+        id: data.id,
+        gameId: data.game_id,
+        problem: data.title,
+        solution: data.content,
+        difficulty: data.difficulty,
+        aiGenerated: false, // Default to false since column doesn't exist in DB
+        createdAt: data.created_at,
+        updatedAt: data.updated_at
+      }
     }
   },
   
