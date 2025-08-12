@@ -25,7 +25,7 @@ export type OutputType = {
 };
 
 export const getDashboardStats = async (init?: RequestInit): Promise<OutputType> => {
-  const result = await fetch(`/_api/dashboard/stats`, {
+  const result = await fetch(`/api/dashboard/stats`, {
     method: "GET",
     ...init,
     headers: {

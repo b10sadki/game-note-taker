@@ -1,6 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
-import { useGameNotes, useCreateGameNote } from '../helpers/useGameNotes';
+import { useGameNotes, useCreateGameNote, useDeleteGameNote } from '../helpers/useGameNotes';
 import { schema as createNoteSchema } from '../endpoints/games/notes_POST.schema';
 
 // Create the omitted schema type for the form
@@ -12,7 +12,7 @@ import { Textarea } from './Textarea';
 import { Button } from './Button';
 import { Skeleton } from './Skeleton';
 import { toast } from 'sonner';
-import { BookText, Plus } from 'lucide-react';
+import { BookText, Plus, Trash2 } from 'lucide-react';
 import styles from './NotesSection.module.css';
 
 interface NotesSectionProps {
@@ -97,6 +97,26 @@ const NotesListSkeleton = () => (
 
 export function NotesSection({ gameId }: NotesSectionProps) {
   const { data: notes, isFetching, error } = useGameNotes(gameId);
+  const deleteNoteMutation = useDeleteGameNote();
+
+  const handleDeleteNote = (noteId: number) => {
+    console.log('handleDeleteNote called with noteId:', noteId);
+    if (window.confirm('Are you sure you want to delete this note?')) {
+      console.log('User confirmed deletion, calling mutation');
+      deleteNoteMutation.mutate({ noteId }, {
+        onSuccess: () => {
+          console.log('Delete mutation successful');
+          toast.success('Note deleted successfully!');
+        },
+        onError: (error) => {
+          console.log('Delete mutation error:', error);
+          toast.error(`Failed to delete note: ${error.message}`);
+        },
+      });
+    } else {
+      console.log('User cancelled deletion');
+    }
+  };
 
   return (
     <div className={styles.section}>
@@ -115,8 +135,22 @@ export function NotesSection({ gameId }: NotesSectionProps) {
               <div className={styles.list}>
                 {notes.map((note) => (
                   <div key={note.id} className={styles.noteItem}>
-                    <h4 className={styles.noteTitle}>{note.title}</h4>
-                    <p className={styles.noteContent}>{note.content}</p>
+                    <div className={styles.noteContent}>
+                      <h4 className={styles.noteTitle}>{note.title}</h4>
+                      <p className={styles.noteText}>{note.content}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        console.log('Delete button clicked for note:', note.id);
+                        handleDeleteNote(note.id);
+                      }}
+                      disabled={deleteNoteMutation.isPending}
+                      className={styles.deleteButton}
+                    >
+                      <Trash2 size={16} />
+                    </Button>
                   </div>
                 ))}
               </div>

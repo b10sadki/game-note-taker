@@ -21,7 +21,7 @@ export default defineConfig(({ isSsrBuild }) => ({
   },
   server: {
     proxy: {
-      '/_api': {
+      '/api': {
         target: 'http://localhost:3344',
         changeOrigin: true,
       },

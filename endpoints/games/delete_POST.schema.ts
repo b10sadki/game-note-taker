@@ -13,7 +13,7 @@ export type OutputType = {
 
 export const postGamesDelete = async (body: InputType, init?: RequestInit): Promise<OutputType> => {
   const validatedInput = schema.parse(body);
-  const result = await fetch(`/_api/games/delete`, {
+  const result = await fetch(`/api/games/delete`, {
     method: "POST",
     body: superjson.stringify(validatedInput),
     ...init,

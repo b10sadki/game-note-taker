@@ -34,6 +34,21 @@
   margin-bottom: var(--spacing-2);
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.deleteButton {
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+
+.deleteButton:hover {
+  color: var(--destructive);
+}
+
 .problemTitle,
 .solutionTitle {
   font-family: var(--font-family-heading);

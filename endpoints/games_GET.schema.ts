@@ -11,7 +11,7 @@ export type InputType = z.infer<typeof schema>;
 export type OutputType = Selectable<Games>[];
 
 export const getGames = async (init?: RequestInit): Promise<OutputType> => {
-  const result = await fetch(`/_api/games`, {
+  const result = await fetch(`/api/games`, {
     method: "GET",
     ...init,
     headers: {

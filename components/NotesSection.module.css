@@ -19,6 +19,14 @@
   padding: var(--spacing-4);
   border-radius: var(--radius-md);
   border-left: 4px solid var(--secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.noteContent {
+  flex: 1;
 }
 
 .noteTitle {
@@ -29,12 +37,22 @@
   color: var(--foreground);
 }
 
-.noteContent {
+.noteText {
   font-size: 0.95rem;
   color: var(--muted-foreground);
   line-height: 1.6;
   margin: 0;
   white-space: pre-wrap;
+}
+
+.deleteButton {
+  color: var(--muted-foreground);
+  transition: color var(--animation-duration-fast) ease;
+  flex-shrink: 0;
+}
+
+.deleteButton:hover {
+  color: var(--error);
 }
 
 .formContainer {

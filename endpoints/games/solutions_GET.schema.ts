@@ -17,7 +17,7 @@ export const getGamesSolutions = async (params: InputType, init?: RequestInit): 
     gameId: validatedParams.gameId.toString(),
   });
 
-  const result = await fetch(`/_api/games/solutions?${searchParams.toString()}`, {
+  const result = await fetch(`/api/games/solutions?${searchParams.toString()}`, {
     method: "GET",
     ...init,
     headers: {

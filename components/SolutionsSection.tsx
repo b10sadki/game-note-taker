@@ -1,6 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
-import { useGameSolutions, useCreateGameSolution } from '../helpers/useGameSolutions';
+import { useGameSolutions, useCreateGameSolution, useDeleteGameSolution } from '../helpers/useGameSolutions';
 import { useGenerateSolution } from '../helpers/useGenerateSolution';
 import { schema as createSolutionSchema } from '../endpoints/games/solutions_POST.schema';
 import { schema as generateSolutionSchema } from '../endpoints/games/solutions/generate_POST.schema';
@@ -18,7 +18,7 @@ import { Button } from './Button';
 import { Skeleton } from './Skeleton';
 import { Badge } from './Badge';
 import { toast } from 'sonner';
-import { Lightbulb, Plus, Sparkles } from 'lucide-react';
+import { Lightbulb, Plus, Sparkles, Trash2 } from 'lucide-react';
 import styles from './SolutionsSection.module.css';
 
 interface SolutionsSectionProps {
@@ -160,6 +160,24 @@ const SolutionsListSkeleton = () => (
 
 export function SolutionsSection({ gameId }: SolutionsSectionProps) {
   const { data: solutions, isFetching, error } = useGameSolutions(gameId);
+  const deleteSolutionMutation = useDeleteGameSolution();
+
+  const handleDeleteSolution = async (solutionId: number) => {
+    console.log('handleDeleteSolution called with solutionId:', solutionId);
+    if (window.confirm('Are you sure you want to delete this solution?')) {
+      console.log('User confirmed deletion, calling mutation');
+      try {
+        await deleteSolutionMutation.mutateAsync({ solutionId });
+        console.log('Delete mutation successful');
+        toast.success('Solution deleted successfully!');
+      } catch (error) {
+        console.log('Delete mutation error:', error);
+        toast.error('Failed to delete solution');
+      }
+    } else {
+      console.log('User cancelled deletion');
+    }
+  };
 
   return (
     <div className={styles.section}>
@@ -180,7 +198,20 @@ export function SolutionsSection({ gameId }: SolutionsSectionProps) {
                   <div key={solution.id} className={styles.solutionItem}>
                     <div className={styles.itemHeader}>
                       <h4 className={styles.problemTitle}>Problem</h4>
-                      {solution.aiGenerated && <Badge variant="secondary">AI Generated</Badge>}
+                      <div className={styles.headerActions}>
+                        {solution.aiGenerated && <Badge variant="secondary">AI Generated</Badge>}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            console.log('Delete button clicked for solution:', solution.id);
+                            handleDeleteSolution(solution.id);
+                          }}
+                          className={styles.deleteButton}
+                        >
+                          <Trash2 size={16} />
+                        </Button>
+                      </div>
                     </div>
                     <p className={styles.problemText}>{solution.problem}</p>
                     <h4 className={styles.solutionTitle}>Solution</h4>

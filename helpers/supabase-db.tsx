@@ -157,6 +157,16 @@ export const supabaseDb = {
       
       if (error) throw error
       return data
+    },
+    
+    async delete(id: number) {
+      const { error } = await supabase
+        .from('notes')
+        .delete()
+        .eq('id', id)
+      
+      if (error) throw error
+      return { success: true }
     }
   },
   
@@ -206,6 +216,16 @@ export const supabaseDb = {
         createdAt: data.created_at,
         updatedAt: data.updated_at
       }
+    },
+    
+    async delete(id: number) {
+      const { error } = await supabase
+        .from('solutions')
+        .delete()
+        .eq('id', id)
+      
+      if (error) throw error
+      return { success: true }
     }
   },
   

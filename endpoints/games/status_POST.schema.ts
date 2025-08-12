@@ -14,7 +14,7 @@ export type OutputType = Selectable<Games>;
 
 export const postGamesStatus = async (body: InputType, init?: RequestInit): Promise<OutputType> => {
   const validatedInput = schema.parse(body);
-  const result = await fetch(`/_api/games/status`, {
+  const result = await fetch(`/api/games/status`, {
     method: "POST",
     body: superjson.stringify(validatedInput),
     ...init,

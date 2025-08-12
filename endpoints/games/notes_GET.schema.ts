@@ -17,7 +17,7 @@ export const getGamesNotes = async (params: InputType, init?: RequestInit): Prom
     gameId: validatedParams.gameId.toString(),
   });
 
-  const result = await fetch(`/_api/games/notes?${searchParams.toString()}`, {
+  const result = await fetch(`/api/games/notes?${searchParams.toString()}`, {
     method: "GET",
     ...init,
     headers: {

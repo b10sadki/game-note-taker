@@ -20,7 +20,7 @@ export type OutputType = {
 
 export const postGamesRawgSearch = async (body: InputType, init?: RequestInit): Promise<OutputType> => {
   const validatedInput = schema.parse(body);
-  const result = await fetch(`/_api/games/rawg_search`, {
+  const result = await fetch(`/api/games/rawg_search`, {
     method: "POST",
     body: superjson.stringify(validatedInput),
     ...init,

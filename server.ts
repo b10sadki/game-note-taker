@@ -5,9 +5,9 @@ import { serve } from '@hono/node-server';
 
 const app = new Hono();
 
-app.get('_api/games',async c => {
+app.get('/api/games',async c => {
   try {
-    const { handle } = await import("./endpoints/games_GET.js");
+    const { handle } = await import("./endpoints/games_GET.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -19,9 +19,9 @@ app.get('_api/games',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games',async c => {
+app.post('/api/games',async c => {
   try {
-    const { handle } = await import("./endpoints/games_POST.js");
+    const { handle } = await import("./endpoints/games_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -33,9 +33,9 @@ app.post('_api/games',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.get('_api/games/notes',async c => {
+app.get('/api/games/notes',async c => {
   try {
-    const { handle } = await import("./endpoints/games/notes_GET.js");
+    const { handle } = await import("./endpoints/games/notes_GET.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -47,9 +47,9 @@ app.get('_api/games/notes',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/notes',async c => {
+app.post('/api/games/notes',async c => {
   try {
-    const { handle } = await import("./endpoints/games/notes_POST.js");
+    const { handle } = await import("./endpoints/games/notes_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -61,9 +61,9 @@ app.post('_api/games/notes',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.get('_api/games/solutions',async c => {
+app.delete('/api/games/notes',async c => {
   try {
-    const { handle } = await import("./endpoints/games/solutions_GET.js");
+    const { handle } = await import("./endpoints/games/notes_DELETE.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -75,9 +75,9 @@ app.get('_api/games/solutions',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/solutions',async c => {
+app.get('/api/games/solutions',async c => {
   try {
-    const { handle } = await import("./endpoints/games/solutions_POST.js");
+    const { handle } = await import("./endpoints/games/solutions_GET.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -89,9 +89,9 @@ app.post('_api/games/solutions',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/solutions/generate',async c => {
+app.post('/api/games/solutions',async c => {
   try {
-    const { handle } = await import("./endpoints/games/solutions/generate_POST.js");
+    const { handle } = await import("./endpoints/games/solutions_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -103,9 +103,9 @@ app.post('_api/games/solutions/generate',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/rawg_search',async c => {
+app.delete('/api/games/solutions',async c => {
   try {
-    const { handle } = await import("./endpoints/games/rawg_search_POST.js");
+    const { handle } = await import("./endpoints/games/solutions_DELETE.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -117,9 +117,9 @@ app.post('_api/games/rawg_search',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/rawg_details',async c => {
+app.post('/api/games/solutions/generate',async c => {
   try {
-    const { handle } = await import("./endpoints/games/rawg_details_POST.js");
+    const { handle } = await import("./endpoints/games/solutions/generate_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -131,9 +131,9 @@ app.post('_api/games/rawg_details',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/import_from_rawg',async c => {
+app.post('/api/games/rawg_search',async c => {
   try {
-    const { handle } = await import("./endpoints/games/import_from_rawg_POST.js");
+    const { handle } = await import("./endpoints/games/rawg_search_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -145,9 +145,9 @@ app.post('_api/games/import_from_rawg',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/delete',async c => {
+app.post('/api/games/rawg_details',async c => {
   try {
-    const { handle } = await import("./endpoints/games/delete_POST.js");
+    const { handle } = await import("./endpoints/games/rawg_details_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -159,9 +159,9 @@ app.post('_api/games/delete',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.post('_api/games/status',async c => {
+app.post('/api/games/import_from_rawg',async c => {
   try {
-    const { handle } = await import("./endpoints/games/status_POST.js");
+    const { handle } = await import("./endpoints/games/import_from_rawg_POST.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -173,9 +173,37 @@ app.post('_api/games/status',async c => {
     return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
   }
 })
-app.get('_api/dashboard/stats',async c => {
+app.post('/api/games/delete',async c => {
   try {
-    const { handle } = await import("./endpoints/dashboard/stats_GET.js");
+    const { handle } = await import("./endpoints/games/delete_POST.ts");
+    let request = c.req.raw;
+    const response = await handle(request);
+    if (!(response instanceof Response) && response.constructor.name !== "Response") {
+      return c.text("Invalid response format. handle should always return a Response object." + response.constructor.name, 500);
+    }
+    return response;
+  } catch (e) {
+    console.error(e);
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
+  }
+})
+app.post('/api/games/status',async c => {
+  try {
+    const { handle } = await import("./endpoints/games/status_POST.ts");
+    let request = c.req.raw;
+    const response = await handle(request);
+    if (!(response instanceof Response) && response.constructor.name !== "Response") {
+      return c.text("Invalid response format. handle should always return a Response object." + response.constructor.name, 500);
+    }
+    return response;
+  } catch (e) {
+    console.error(e);
+    return c.json({ error: "Error loading endpoint code: " + e.message }, 500)
+  }
+})
+app.get('/api/dashboard/stats',async c => {
+  try {
+    const { handle } = await import("./endpoints/dashboard/stats_GET.ts");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {
@@ -190,7 +218,7 @@ app.get('_api/dashboard/stats',async c => {
 app.use('/*', serveStatic({ root: './dist' }))
 app.get("*", async (c, next) => {
   const p = c.req.path;
-  if (p.startsWith("/_api")) {
+  if (p.startsWith("/api")) {
     return next();
   }
   return serveStatic({ path: "./dist/index.html" })(c, next);
