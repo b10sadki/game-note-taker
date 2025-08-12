@@ -39,9 +39,9 @@ Problem: ${input.problem}`;
     }
 
     const newSolution = await supabaseDb.solutions.create({
-      game_id: input.gameId,
-      title: input.problem,
-      content: generatedSolution,
+      gameId: input.gameId,
+      problem: input.problem,
+      solution: generatedSolution,
     });
 
     return new Response(superjson.stringify(newSolution satisfies OutputType), {
