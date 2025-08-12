@@ -16,7 +16,7 @@ export async function handle(request: Request) {
     const json = superjson.parse(await request.text());
     const input = schema.parse(json);
 
-    const game = await supabaseDb.games.getById(input.gameId);
+    const game = await supabaseDb.games.findById(input.gameId);
 
     if (!game) {
       return new Response(superjson.stringify({ error: "Game not found" }), { status: 404 });
